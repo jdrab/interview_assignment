@@ -4,6 +4,7 @@
 - Do diskusie môže prispievať
 ktokoľvek, pričom sa dá reagovať na jednotlivé komentáre. Komentár musí
 obsahovať autora, dátum pridania a samotný text.
+
 - Nad touto diskusiou vytvorte administračné rozhranie kde bude mať prístup
 iba oprávnená osoba a bude vedieť tieto komentáre zmazať, upraviť alebo
 vytvoriť reakciu na akýkoľvek komentár.
