@@ -2,52 +2,36 @@
 
 namespace App;
 
+use PDO;
+
 use App\DbConfig;
 
 
 class Db extends \PDO
 {
 
-    public $dbh;
-
-    /**
-     * PDO Options
-     * @var array
-     */
-    private $_options;
-
-    /**
-     * Query offset
-     * @var int
-     */
-    // public $offset;
-    public $statement;
-    public $groupBy;
-    public $offset;
-    public $limit;
-    public $columns;
-    public $where;
-    public $dbTable;
+    private $dbh;
 
     public function __construct(DbConfig $c)
     {
-
-        die(var_dump($c));
-        $this->dbh = parent::__construct(
-            $c->adapter() . ':' . $c->host() . ';dbname=' . $c->name(),
-            $c->user(),
-            $c->pass(),
-            array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES " . $c->charset())
-        );
-        $this->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        $this->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+        try {
+            $this->dbh = new \PDO(
+                $c->adapter() . ':' . $c->host() . ';dbname=' . $c->name(),
+                $c->user(),
+                $c->pass(),
+                [
+                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                    \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+                ]
+            );
+        } catch (\PDOException $e) {
+            throw new \PDOException($e->getMessage(), (int)$e->getCode());
+        }
+        return $this;
     }
 
-    public static function getInstance()
+    public function connect(): \PDO
     {
-        // if (!self::$_instance instanceof self) {
-        //     self::$_instance = new self;
-        // }
-        // return self::$_instance;
+        return $this->dbh;
     }
 }

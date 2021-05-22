@@ -8,7 +8,8 @@ use Interface\DbConfigInterface;
 
 class DbConfig implements DbConfigInterface
 {
-    public function __invoke($config): DbConfigInterface
+
+    public function __construct(array $config)
     {
         $this->adapter = $config['adapter'] ?? null;
         $this->host = $config['host'] ?? null;

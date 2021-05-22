@@ -4,15 +4,10 @@ declare(strict_types=1);
 
 use App\Db;
 use App\DbConfig;
-use Interface\DbConfigInterface;
+use App\Responder\Responder;
+use League\Plates\Engine;
 use Psr\Container\ContainerInterface;
 use Slim\Factory\AppFactory;
-use App\Responder\Responder;
-use DI\ContainerBuilder;
-use League\Plates\Engine;
-
-use Slim\Psr7\Response;
-use Slim\Psr7\Factory\ResponseFactory;
 //copy pasta
 use Slim\Interfaces\RouteParserInterface;
 
@@ -32,12 +27,18 @@ return [
         return AppFactory::create();
     },
 
-    // DbConfig::class => function (ContainerInterface $container) {
-    //     return new DbConfig($container->get('database'));
-    // },
+    DbConfig::class => function (ContainerInterface $container) {
+        $settings = $container->get('settings');
+        $dbconfig = $container->get('database');
+
+        return new DbConfig($dbconfig[$settings['db']['env']]);
+    },
 
     Db::class => function (ContainerInterface $container) {
-        return new Db(new DbConfig($container->get('database')));
+        $settings = $container->get('settings');
+        $dbconfig = $container->get('database');
+
+        return new Db(new DbConfig($dbconfig[$settings['db']['env']]));
     },
 
     Templates::class => function (ContainerInterface $container) {
@@ -48,17 +49,13 @@ return [
         return $container->get(App::class)->getResponseFactory();
     },
 
-    RouteParserInterface::class => function (ContainerInterface $container) {
-        return new RouteParserInterface;
-    },
-
     Responder::class => function (ContainerInterface $container) {
         $engine = $container->get(Templates::class);
         $responseInterface = $container->get(App::class)->getResponseFactory();
         return new Responder($engine, $responseInterface);
     },
 
-    // slim router - aj pre  responder
+    // slim router - aj pre responder,take divne
     RouteParserInterface::class => function (ContainerInterface $container) {
         return $container->get(App::class)->getRouteCollector()->getRouteParser();
     },
