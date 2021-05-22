@@ -19,6 +19,9 @@ return [
     'database' => function () {
         return require __DIR__ . '/database.php';
     },
+    'flash' => function () {
+        return new \Slim\Flash\Messages();
+    },
 
     // vytvorit rovno appfactory
     App::class => function (ContainerInterface $container) {
@@ -52,7 +55,7 @@ return [
     Responder::class => function (ContainerInterface $container) {
         $engine = $container->get(Templates::class);
         $responseInterface = $container->get(App::class)->getResponseFactory();
-        return new Responder($engine, $responseInterface);
+        return new Responder($engine, $responseInterface, $container->get('flash'));
     },
 
     // slim router - aj pre responder,take divne

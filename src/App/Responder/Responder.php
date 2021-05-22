@@ -6,6 +6,8 @@ use Slim\Psr7\Response;
 use Slim\Psr7\Factory\ResponseFactory;
 
 use League\Plates\Engine as Templates;
+use Slim\Flash\Messages;
+use App\DataTypes\FlashMessage;
 
 use function http_build_query;
 
@@ -19,23 +21,15 @@ final class Responder
 
     private ResponseFactory $responseFactory;
 
-    /**
-     * The constructor.
-     *
-     * @param League\Plates\Engine $engine The template engine
-     * @param RouteParserInterface $routeParser The route parser
-     * @param ResponseFactoryInterface $responseFactory The response factory
-     */
-
     public function __construct(
         Templates $templates,
-        ResponseFactory $responseFactory
+        ResponseFactory $responseFactory,
+        Messages $messages
     ) {
         $this->templates = $templates;
         $this->responseFactory = $responseFactory;
-        $this->routeParser = $routeParser;
+        $this->flash = $messages;
     }
-
 
     /**
      * Create a new response.
@@ -47,17 +41,61 @@ final class Responder
         return $this->responseFactory->createResponse()->withHeader('Content-Type', 'text/html; charset=utf-8');
     }
 
+    public function getMessages()
+    {
+        return $this->flash->getMessages();
+    }
+
+    public function addError(string $err)
+    {
+        $this->flash->addMessage('error', $err);
+        $this->templates->addData(['messages' => $err], 'template');
+        return $this;
+    }
+
+    public function addWarning(string $warning)
+    {
+        $this->flash->addMessage('warning', $warning);
+        $this->templates->addData(['messages' => $warning], 'template');
+        return $this;
+    }
+    public function addInfo(string $info)
+    {
+        $this->flash->addMessage('info', $info);
+        $this->templates->addData(['messages' => $info], 'template');
+        return $this;
+    }
+    public function addSuccess(string $success)
+    {
+        $this->flash->addMessage('success', $success);
+        $this->templates->addData(['messages' => $success], 'template');
+        return $this;
+    }
+
+    public function preserveMessages($data)
+    {
+        $this->templates->addData(['messages' => $data], "template");
+    }
+
+    public function addErrors(array $err)
+    {
+        array_map([Responder::class, 'addError'], $err);
+        return $this;
+    }
+
     /**
      * Output rendered template.
      *
-     * @param ResponseInterface $response The response
+     * @param Response $response The response
      * @param string $template Template pathname relative to templates directory
      * @param array<mixed> $data Associative array of template variables
      *
-     * @return ResponseInterface The response
+     * @return Response The response
      */
     public function withTemplate(Response $response, string $template, array $data = []): Response
     {
+        $this->templates->addData(['errors' => ''], 'template');
+
         $content = $this->templates->render($template, $data);
         $response->getBody()->write($content);
         return $response;
@@ -69,11 +107,11 @@ final class Responder
      * This method prepares the response object to return an HTTP Redirect
      * response to the client.
      *
-     * @param ResponseInterface $response The response
+     * @param Response $response The response
      * @param string $destination The redirect destination (url or route name)
      * @param array<mixed> $queryParams Optional query string parameters
      *
-     * @return ResponseInterface The response
+     * @return Response The response
      */
     public function withRedirect(
         Response $response,
@@ -93,11 +131,11 @@ final class Responder
      * This method prepares the response object to return an HTTP JSON
      * response to the client.
      *
-     * @param ResponseInterface $response The response
+     * @param Response $response The response
      * @param mixed $data The data
      * @param int $options Json encoding options
      *
-     * @return ResponseInterface The response
+     * @return Response The response
      */
     public function withJson(
         Response $response,
@@ -105,7 +143,7 @@ final class Responder
         int $options = 0
     ): Response {
         $response = $response->withHeader('Content-Type', 'application/json');
-        $response->getBody()->write((string)json_encode($data, $options));
+        $response->getBody()->write((string) json_encode($data, $options));
 
         return $response;
     }

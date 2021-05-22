@@ -23,7 +23,7 @@
                 <a href="/admin/login" class="nav-link link-dark px-2">Login</a>
             </div>
         </nav>
-
+        <?php $this->insert('partials/messages', ['messages' => $messages]); ?>
         <?= $this->section('content') ?>
     </div>
     <!-- Optional JavaScript; choose one of the two! -->

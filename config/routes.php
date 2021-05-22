@@ -13,6 +13,14 @@ return function (App $app) {
     $app->get('/add-comment/{id}', \App\Action\User\AddComment::class);
     $app->post('/create-comment', \App\Action\User\CreateComment::class);
 
+    // $app->get('/foo', function ($req, $res, $args) {
+    //     // Set flash message for next request
+    //     $this->flash->addMessage('Test', 'This is a message');
+
+    //     // Redirect
+    //     return $res->withStatus(302)->withHeader('Location', '/bar');
+    // });
+
 
 
     $app->group(

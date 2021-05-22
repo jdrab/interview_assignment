@@ -16,12 +16,12 @@ class Db extends \PDO
     {
         try {
             $this->dbh = new \PDO(
-                $c->adapter() . ':' . $c->host() . ';dbname=' . $c->name(),
+                $c->adapter() . ':host=' . $c->host() . ';dbname=' . $c->name(),
                 $c->user(),
                 $c->pass(),
                 [
                     \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                    \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+                    // \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
                 ]
             );
         } catch (\PDOException $e) {
