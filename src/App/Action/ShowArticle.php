@@ -14,7 +14,7 @@ class ShowArticle
     private $repo;
     private $responder;
     private $page = 1;
-    private $perPage = 10;
+    private $perPage = 50;
 
     # za normalnych okolnosti by tu bol article repository a ten by hladal commenty,
     # ale article repo neexistuje, rovnako je to obratene nafejkovane v comments repo

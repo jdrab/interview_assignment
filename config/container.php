@@ -32,10 +32,8 @@ return [
         return new Guard($container->get(App::class)->getResponseFactory());
     },
 
-    // vytvorit rovno appfactory
     App::class => function (ContainerInterface $container) {
         AppFactory::setContainer($container);
-
         return AppFactory::create();
     },
 
@@ -67,7 +65,7 @@ return [
         return new Responder($responseInterface, $engine, $container->get('flash'), $container->get('csrf'));
     },
 
-    // slim router - aj pre responder,take divne
+    // slim router - aj pre responder
     RouteParserInterface::class => function (ContainerInterface $container) {
         return $container->get(App::class)->getRouteCollector()->getRouteParser();
     },
@@ -80,7 +78,5 @@ return [
     SessionMiddleware::class => function (ContainerInterface $container) {
         return new SessionMiddleware($container->get(Session::class));
     },
-
-
 
 ];

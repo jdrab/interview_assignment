@@ -18,9 +18,6 @@ final class UserAuthMiddleware implements MiddlewareInterface
      */
     private $responseFactory;
 
-    /**
-     * @var SessionInterface
-     */
     private $session;
 
     public function __construct(

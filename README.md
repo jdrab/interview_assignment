@@ -16,13 +16,25 @@ Zaujíma nás Váš prístup k OOP a čistote kódu.
 - Formát výstupu: Link pre verejný repozitár.
 
 
-### co je pod kapotou
-- zaklad slim4
+### použité
+- ako zaklad slim4 s pokusom o implementaciu ADR
 - php-di ako dependency injektor
+- primitivny autorizacny middleware a najivne sessions
 - nativne templates s pouzitim plates, sablony su trochu hnusne lebo <?= ?>
-- codecept pre acceptance testing
 - phinx pre migracie a seed databazy
-- komplexnejsiu validaciu vstupov by som pravdepodobne riesil cez cake validator
+- ~~codecept pre acceptance testing~~
+- slim/csrf
 
-### co som neriesil
+### co som vobec neriesil
 - strankovanie ku komentarom
+- nestihol som zdokumentovat a aspon acceptance testy, hence the ~~codecept~~
+
+### sfunkcnenie
+- php8 (lebo pouzivam minimalne union typy pre navratove hodnoty funkcii kde-tu)
+- nastavit v db.env
+- podla nastavenia environmentu vytvorit usera a db a nastavit to do config/database.php
+- composer install
+- php vendor/bin/phinx migrate
+- php vendor/bin/phinx seed:run
+- php -S localhost:8000 -t public
+- v config/session.php su uvedene defaultne prihlasovacie udaje admin:admin

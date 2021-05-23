@@ -1,9 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-# veci pre nastavenie PDO a phinx migracii
-
 return [
     'production' => [
         'adapter' => 'mysql',

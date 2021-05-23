@@ -26,16 +26,11 @@ final class SessionMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        // _DISABLED = 0
-        // _NONE = 1
-        // _ACTIVE = 2
-        // die(var_dump(session_status()));
         if (!$this->session->isActive()) {
             $this->session->start();
         }
 
         $response = $handler->handle($request);
-        // $this->session->save();
 
         return $response;
     }

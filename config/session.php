@@ -11,6 +11,7 @@ declare(strict_types=1);
 return [
     'default_login' => 'admin',
     'default_password' => 'admin',
+
     'algo' => PASSWORD_ARGON2ID, // parameter pre password_hash
     'argon2_options' => [
         'memory_cost' => 131072, // 128MB
@@ -23,8 +24,3 @@ return [
         'gc_maxlifetime' => 1800 // seconds eg: 30min
     ]
 ];
-
-
-
-// password_verify ( string $password , string $hash ) : bool
-// password_hash ( string $password , mixed $algo , array $options = ? ) : string|false

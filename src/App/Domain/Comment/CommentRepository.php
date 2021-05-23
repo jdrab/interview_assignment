@@ -44,7 +44,7 @@ class CommentRepository
 
     public function readByPage(
         int $page = 1,
-        int $perPage = 20
+        int $perPage = 50
     ): array {
 
         $offset = $perPage * ($page - 1);
@@ -59,6 +59,7 @@ class CommentRepository
         $rows = $stmt->fetchAll(\PDO::FETCH_CLASS, Comment::class);
         return $rows;
     }
+
     public function findNextThreadId(): int
     {
         $stmt = $this->db->connect()->query("SELECT MAX(thread_id) AS tid from comments");

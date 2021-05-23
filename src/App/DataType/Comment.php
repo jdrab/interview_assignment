@@ -20,7 +20,6 @@ class Comment
     {
     }
 
-    #magic metody pre get a set
     public function __get(string $key)
     {
         return $this->$key;
