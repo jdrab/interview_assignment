@@ -10,17 +10,14 @@ use App\DbConfig;
 class TestDomain
 {
 
-    public function __construct(Db $db)
+    public function __construct(Db $pdo)
     {
-
-        var_dump($db);
-        $this->db = $db->connect();
-        var_dump($this->db);
+        $this->pdo = $pdo;
     }
 
     public function data(): array
     {
-        $stmt = $this->db->prepare("SELECT NOW()");
+        $stmt = $this->pdo->prepare("SELECT NOW()");
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);

@@ -10,13 +10,13 @@ use App\DbConfig;
 class Db extends \PDO
 {
 
-    private $dbh;
+    protected $dbh;
 
     public function __construct(DbConfig $c)
     {
         try {
             $this->dbh = new \PDO(
-                $c->adapter() . ':host=' . $c->host() . ';dbname=' . $c->name(),
+                $c->adapter() . ':host=' . $c->host() . ';port=' . $c->port() . ';dbname=' . $c->name(),
                 $c->user(),
                 $c->pass(),
                 [
@@ -27,10 +27,9 @@ class Db extends \PDO
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }
-        return $this;
+        return $this->dbh;
     }
-
-    public function connect(): \PDO
+    public function connect()
     {
         return $this->dbh;
     }

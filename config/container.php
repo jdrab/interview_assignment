@@ -53,9 +53,9 @@ return [
     },
 
     Responder::class => function (ContainerInterface $container) {
-        $engine = $container->get(Templates::class);
         $responseInterface = $container->get(App::class)->getResponseFactory();
-        return new Responder($engine, $responseInterface, $container->get('flash'));
+        $engine = $container->get(Templates::class);
+        return new Responder($responseInterface, $engine, $container->get('flash'));
     },
 
     // slim router - aj pre responder,take divne

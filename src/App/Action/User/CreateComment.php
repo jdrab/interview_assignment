@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace App\Action\User;
 
-use App\DataTypes\FlashMessage;
+use App\DataType\FlashMessage;
+use App\Db;
+use App\DbConfig;
+use App\DataType\Comment;
+use App\Domain\Comment\CommentRepository;
+use App\Mapper\CommentMapper;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Responder\Responder;
-
 
 /**
  * create comment savuje
@@ -16,28 +20,61 @@ use App\Responder\Responder;
 class CreateComment
 {
 
-    public function __construct(Responder $responder)
+    public function __construct(Responder $responder, CommentRepository $repo)
     {
         $this->responder = $responder;
+        $this->domain = $repo;
     }
 
     public function __invoke(Request $request, Response $response): Response
     {
-        // $this->respondeget('flash')->addMessage('Test', 'This is a message');
-        // Redirect
-        // return $res->withStatus(302)->withHeader('Location', '/bar');
+        $args = $request->getParsedBody();
 
-        #$data = $request->getParsedBody();
-        #$data = $this->repo->insert();
+        // skontrolovat existenciu clanku
+        // budem sa tvarit, ze 1 clanok existuje
+        if ($args['article_id'] != 1) {
+            $article = $this->domain->findArticleById((int) $args['article_id']);
+            // neexistuje clanok s tymto idckom, nafejkoval som to len cez existenciu
+            // article_id v tabulke comments
+            if (!$article) {
+                // neriesim ani dalsie chyby, rovno koncim
+                return $this->responder->addError('Clanok neexistuje')->withRedirect($response, '/');
+            }
+        }
 
+        // skontrolovat existenciu threadu v reakcii
+        if ($args['thread_id']) {
+            $thread = $this->domain->findThreadById((int) $args['thread_id']);
+            if (!$thread) {
+                // neriesim ani dalsie chyby, rovno koncim
+                return $this->responder->addError('Vlakno neexistuje')->withRedirect($response, '/');
+            }
+        } else {
+            // pridava sa novy komentar, takze zistit dalsie thread_id
+            $args['thread_id'] = $this->domain->findNextThreadId();
+        }
 
-        return $this->responder //->addErrors(["prva", "druha"])
-            ->addWarning('Toto je varowanie')
-            ->addInfo('Si sa pozral..')
-            ->addSuccess('Si pan si pan')
-            ->addError('tretia chyba')->withRedirect($response, '/');
+        //author && body
+        if (empty($args['author'])) {
+            $this->responder->addError('Meno autora je povinne');
+        }
+
+        if (empty($args['body']) || strlen($args['body']) < 2) {
+            $this->responder->addError('Komentar musi mat aspon 2 znaky');
+        }
+
+        if ($this->responder->hasErrors()) {
+            return $this->responder->withRedirect($response, '/');
+        }
+
+        $comment = CommentMapper::create($args);
+
+        if ($this->domain->insert($comment)) {
+            $this->responder->addSuccess('Komentar pridany!');
+        } else {
+            $this->responder->addWarning('Komentár sa nepodarilo pridať :O');
+        }
+
+        return $this->responder->withRedirect($response, '/');
     }
-
-    // return $this->responder->withTemplate($response, $this->templatePath, $data);
-    // }
 }

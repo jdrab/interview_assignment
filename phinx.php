@@ -3,6 +3,7 @@
 declare(strict_types=1);
 # phinx musi pouzivat jednotne nastavenia
 $db = require __DIR__ . '/config/database.php';
+require __DIR__ . '/vendor/autoload.php';
 
 return
     [

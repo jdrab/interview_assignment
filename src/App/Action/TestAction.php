@@ -14,7 +14,6 @@ use App\Responder\Responder;
 class TestAction
 {
 
-
     public function __construct(
         CommentRepository $domain,
         Responder $responder

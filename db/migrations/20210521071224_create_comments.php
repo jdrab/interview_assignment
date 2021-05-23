@@ -25,7 +25,7 @@ final class CreateComments extends AbstractMigration
             ->addColumn('body', 'text', ['limit' => '1024', 'null' => false])
             ->addColumn('article_id', 'integer', ['null' => false])
             ->addColumn('thread_id', 'integer', ['null' => false]) //nikdy nemoze byt null,
-            ->addColumn('ref_to_thread', 'integer', ['null' => true]) //moze byt null
+            ->addColumn('ref_to_comment', 'integer', ['null' => true]) //moze byt null lebo comment moze byt prvy v threade
             ->create();
     }
 }
