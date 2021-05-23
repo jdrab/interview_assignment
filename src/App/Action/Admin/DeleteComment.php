@@ -12,10 +12,14 @@ use App\Responder\Responder;
 class DeleteComment
 {
 
+    const COMMENT_INVALID = "Neplatný komentár";
+    const COMMENT_MISSING = "Komentár neexistuje";
+
     public function __construct(Responder $responder, CommentRepository $repo)
     {
         $this->responder = $responder;
         $this->domain = $repo;
+        $this->templatePath = 'admin/comment/delete-comment';
     }
 
     public function __invoke(
@@ -26,17 +30,14 @@ class DeleteComment
         // Fetch parameters from the request
         $commentId = (int) $args['id'];
         if ($commentId < 1) {
-            return $this->responder->addError('Neplatné ID komentára')->withRedirect($response, '/');
+            return $this->responder->addError(self::COMMENT_INVALID)->withRedirect($response, '/');
         }
 
         $data = $this->domain->findById($commentId);
 
         if (!$data) {
-            return $this->responder->addError('Komentar neexistuje')->withRedirect($response, '/');
+            return $this->responder->addError(self::COMMENT_MISSING)->withRedirect($response, '/');
         }
-        return $this->responder->withTemplate($response, 'admin/comment/delete-comment', $data);
+        return $this->responder->withTemplate($response, $this->templatePath, $data);
     }
 }
-
-
-// ZMAZANIE KOMENTARA KTORY JE'asdf' v url FIXNUT
