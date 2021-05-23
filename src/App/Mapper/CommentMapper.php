@@ -7,7 +7,6 @@ namespace App\Mapper;
 use App\DataType\Comment;
 use \ReflectionClass;
 use \ReflectionProperty;
-use stdClass;
 
 class  CommentMapper
 {
@@ -27,7 +26,7 @@ class  CommentMapper
         foreach ($props as $prop) {
 
             if (in_array($prop->name, $available)) {
-                if (str_ends_with($prop->name, '_id')) {
+                if (str_ends_with($prop->name, '_id') || $prop->name === 'id') {
                     $obj->{$prop->name} = (int) $data[$prop->name];
                 } else {
                     $obj->{$prop->name} = $data[$prop->name];
@@ -36,23 +35,4 @@ class  CommentMapper
         }
         return $obj;
     }
-
-
-    // public function setData(array $data = []): void
-    // {
-    //     foreach ($data as $key => $value) {
-    //         if (property_exists($this, $key)) {
-    //             $this->{$key} = $value;
-    //         }
-    //     }
-    // }
-
-    // public function getData(): array
-    // {
-    //     $properties = get_object_vars($this);
-    //     return $properties;
-    // }
-
-
-    //return Comment
 }

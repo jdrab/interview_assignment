@@ -4,19 +4,12 @@ declare(strict_types=1);
 
 namespace App\Action\User;
 
-use App\DataType\FlashMessage;
-use App\Db;
-use App\DbConfig;
-use App\DataType\Comment;
 use App\Domain\Comment\CommentRepository;
 use App\Mapper\CommentMapper;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Responder\Responder;
 
-/**
- * create comment savuje
- */
 class CreateComment
 {
 

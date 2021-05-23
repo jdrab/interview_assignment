@@ -7,7 +7,6 @@ namespace App\Domain\Comment;
 use App\Db;
 use App\Domain\Article\ArticleRepository;
 use App\DataType\Comment;
-use App\Mapper\CommentMapper;
 use PDO;
 
 class CommentRepository
@@ -45,7 +44,7 @@ class CommentRepository
 
     public function readByPage(
         int $page = 1,
-        int $perPage = 10
+        int $perPage = 20
     ): array {
 
         $offset = $perPage * ($page - 1);
@@ -60,7 +59,7 @@ class CommentRepository
         $rows = $stmt->fetchAll(\PDO::FETCH_CLASS, Comment::class);
         return $rows;
     }
-    public function findNextThreadId()
+    public function findNextThreadId(): int
     {
         $stmt = $this->db->connect()->query("SELECT MAX(thread_id) AS tid from comments");
         # pretoze MAX moze vratit aj NULL a mysql nezvlada null+1 :P
@@ -99,5 +98,21 @@ class CommentRepository
         $stmt->bindParam(':id', $comment_id, PDO::PARAM_INT);
         $stmt->execute();
         return ($stmt->rowCount() > 0);
+    }
+
+    public function update(Comment $comment): bool
+    {
+        # v db sa updated_at column meni lebo ON UPDATE current_timestamp()
+        $q = "UPDATE comments SET author=:author ,body =:body WHERE id = :id";
+        $stmt = $this->db->connect()->prepare($q);
+        $stmt->execute(
+            [
+                'author' => filter_var($comment->author, FILTER_SANITIZE_STRING),
+                'body' => filter_var($comment->body, FILTER_SANITIZE_STRING),
+                'id' => filter_var($comment->id, FILTER_SANITIZE_NUMBER_INT),
+            ]
+        );
+        # len pri sqlite vzdy vracia rowCount() z pdo 0
+        return (bool) $stmt->rowCount();
     }
 }

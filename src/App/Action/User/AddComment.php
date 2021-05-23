@@ -18,7 +18,7 @@ class AddComment
     {
         $this->responder = $responder;
         $this->domain = $repo;
-        $this->templatePath = 'comments/add';
+        $this->templatePath = 'comment/add-comment';
     }
 
     public function __invoke(
@@ -34,7 +34,7 @@ class AddComment
         }
 
         $data = $this->domain->findById($commentId);
-        var_dump($data);
+
         if (!$data) {
             return $this->responder->addError(self::COMMENT_MISSING)->withRedirect($response, '/');
         }

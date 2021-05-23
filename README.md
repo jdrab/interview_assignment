@@ -19,12 +19,10 @@ Zaujíma nás Váš prístup k OOP a čistote kódu.
 ### co je pod kapotou
 - zaklad slim4
 - php-di ako dependency injektor
-- nativne templates s pouzitim plates
-- phinx pre acceptance testing
+- nativne templates s pouzitim plates, sablony su trochu hnusne lebo <?= ?>
+- codecept pre acceptance testing
+- phinx pre migracie a seed databazy
 - komplexnejsiu validaciu vstupov by som pravdepodobne riesil cez cake validator
 
-### co sa da zlepsit
+### co som neriesil
 - strankovanie ku komentarom
-- index nad comments.thread_id robi sa viac operacii, ktore to vyuziju (max aj order by)
-- pri vytvarani commentov sa da pouzit pri zapise abstract factory na vytvaranie
-  objektu comment a nasledne aj validacia objektu cez filter

@@ -7,7 +7,6 @@ use Slim\Psr7\Factory\ResponseFactory;
 
 use League\Plates\Engine as Templates;
 use Slim\Flash\Messages;
-use App\DataType\FlashMessage;
 
 use function http_build_query;
 
@@ -75,13 +74,13 @@ final class Responder
     public function hasErrors()
     {
         return $this->errors > 0;
-        // var_dump($this->flash->hasMessage('error'));
-        return $this->flash()->hasMessage('error');
     }
+
     public function flash()
     {
         return $this->flash;
     }
+
     public function preserveMessages($data)
     {
         $this->templates->addData(['messages' => $data], "template");

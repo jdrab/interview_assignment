@@ -42,43 +42,40 @@ class Comments extends AbstractSeed
         $manual[4] = [
             'created_at' => '2021-05-07 04:26:22',
             'ref_to_comment_id' => null,
-            'thread_id' => 3,
+            'thread_id' => 4,
         ];
         $manual[5] = [
             'created_at' => '2021-05-08 15:45:01',
             'ref_to_comment_id' => null,
-            'thread_id' => 4,
+            'thread_id' => 5,
         ];
         $manual[6] = [
             'created_at' => '2021-05-14 02:27:53',
-            'ref_to_comment_id' => 5,
-            'thread_id' => 4,
+            'ref_to_comment_id' => 6,
+            'thread_id' => 5,
         ];
         $manual[7] = [
             'created_at' => '2021-04-26 10:47:55',
-            'ref_to_comment_id' => 5,
-            'thread_id' => 4,
+            'ref_to_comment_id' => 6,
+            'thread_id' => 5,
         ];
         $manual[8] = [
             'created_at' => '2021-04-26 10:47:55',
-            'ref_to_comment_id' => 5,
-            'thread_id' => 4,
+            'ref_to_comment_id' => 6,
+            'thread_id' => 5,
         ];
         $manual[9] = [
             'created_at' => '2021-04-26 10:47:55',
-            'ref_to_comment_id' => 6,
-            'thread_id' => 4,
+            'ref_to_comment_id' => 8,
+            'thread_id' => 5,
         ];
         $manual[10] = [
             'created_at' => '2021-04-26 10:47:55',
             'ref_to_comment_id' => null,
-            'thread_id' => 5,
+            'thread_id' => 6,
 
         ];
 
-
-
-        # vytvorim 5 komentarov
         for ($i = 1; $i < 12; $i++) {
             $data[] = [
                 'created_at' => $manual[$i - 1]['created_at'],
