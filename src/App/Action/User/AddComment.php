@@ -34,6 +34,11 @@ class AddComment
         }
 
         $data = $this->domain->findById($commentId);
+        $csrf = $this->responder->csrf;
+        $data['nameKey'] = $csrf->getTokenNameKey();
+        $data['valueKey'] = $csrf->getTokenValueKey();
+        $data['name'] = $request->getAttribute($data['nameKey']);
+        $data['value'] = $request->getAttribute($data['valueKey']);
 
         if (!$data) {
             return $this->responder->addError(self::COMMENT_MISSING)->withRedirect($response, '/');

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Middleware\SessionMiddleware;
 use Slim\App;
+use Slim\Csrf\Guard;
 
 return function (App $app) {
 
@@ -11,8 +12,9 @@ return function (App $app) {
     // vytiahnut settings container z app
     $settings = $app->getContainer()->get('settings');
 
-    $app->add(SessionMiddleware::class);
 
+    $app->add(SessionMiddleware::class);
+    $app->add('csrf');
     $app->addRoutingMiddleware();
 
     // a nastavit spravanie pre errory

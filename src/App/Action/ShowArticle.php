@@ -35,6 +35,12 @@ class ShowArticle
             $this->page = (int) $request->getQueryParams()['page'];
         }
 
+        $csrf = $this->responder->csrf;
+        $data['nameKey'] = $csrf->getTokenNameKey();
+        $data['valueKey'] = $csrf->getTokenValueKey();
+        $data['name'] = $request->getAttribute($data['nameKey']);
+        $data['value'] = $request->getAttribute($data['valueKey']);
+
         $data['comments'] = $this->comment->readByPage($this->page, $this->perPage);
         // preserve messages
         $this->responder->preserveMessages($this->responder->getMessages());

@@ -5,7 +5,7 @@ declare(strict_types=1);
 require __DIR__ . '/../vendor/autoload.php';
 
 // @FIXME
-// session_start();
+session_start();
 
 $builder = new DI\ContainerBuilder();
 

@@ -10,6 +10,7 @@ return function (App $app) {
     $app->get('/', \App\Action\ShowArticle::class)->setName('home');
     $app->get('/add-comment/{id}', \App\Action\User\AddComment::class);
     $app->post('/create-comment', \App\Action\User\CreateComment::class);
+
     #login musi byt mimo /admin
     $app->get('/login', \App\Action\Login::class)->setName('login');
     $app->post('/auth', \App\Action\Admin\Authenticate::class);

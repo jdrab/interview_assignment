@@ -6,6 +6,7 @@ use Slim\Psr7\Response;
 use Slim\Psr7\Factory\ResponseFactory;
 
 use League\Plates\Engine as Templates;
+use Slim\Csrf\Guard;
 use Slim\Flash\Messages;
 
 use function http_build_query;
@@ -23,11 +24,13 @@ final class Responder
     public function __construct(
         ResponseFactory $responseFactory,
         Templates $templates,
-        Messages $messages
+        Messages $messages,
+        Guard $csrf
     ) {
         $this->templates = $templates;
         $this->responseFactory = $responseFactory;
         $this->flash = $messages;
+        $this->csrf = $csrf;
     }
 
     /**

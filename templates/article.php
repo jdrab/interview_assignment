@@ -16,6 +16,9 @@ $this->layout('template', ['title' => 'Sample Article']);
 <div class="border btn-light p-3 mt-5 mb-5">
     <h5 class="pb-3">Zapojiť sa do diskusie</h5>
     <form enctype="multipart/form-data" action="/create-comment" method="post">
+        <input type="hidden" name="<?= $nameKey ?>" value="<?= $name ?>">
+        <input type="hidden" name="<?= $valueKey ?>" value="<?= $value ?>">
+
 
         <input type="hidden" name="article_id" value="1" />
         <input type="hidden" value="thread_id" value="" />

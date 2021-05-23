@@ -25,6 +25,12 @@ class Login
         $data = [];
         $this->responder->preserveMessages($this->responder->getMessages());
 
+        $csrf = $this->responder->csrf;
+        $data['nameKey'] = $csrf->getTokenNameKey();
+        $data['valueKey'] = $csrf->getTokenValueKey();
+        $data['name'] = $request->getAttribute($data['nameKey']);
+        $data['value'] = $request->getAttribute($data['valueKey']);
+
         return $this->responder->withTemplate($response, $this->templatePath, $data);
     }
 }

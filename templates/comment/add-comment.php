@@ -3,6 +3,9 @@ $this->layout('template', ['title' => 'Reakcia na komenár']);
 ?>
 
 <form enctype="multipart/form-data" action="/create-comment" method="post">
+    <input type="hidden" name="<?= $nameKey ?>" value="<?= $name ?>">
+    <input type="hidden" name="<?= $valueKey ?>" value="<?= $value ?>">
+
     <div class="border btn-light p-3 mt-5 mb-5">
         <h3 class="mb-2">Reakcia na komentár</h3>
         <input type="hidden" name="article_id" value="<?= $article_id ?>" />

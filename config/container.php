@@ -11,6 +11,7 @@ use Slim\Factory\AppFactory;
 use Slim\Interfaces\RouteParserInterface;
 use App\Middleware\SessionMiddleware;
 use App\Session;
+use Slim\Csrf\Guard;
 
 return [
     // natiahnut do kontaniera settings
@@ -25,6 +26,10 @@ return [
     },
     'session' => function () {
         return require __DIR__ . '/session.php';
+    },
+
+    'csrf' => function (ContainerInterface $container) {
+        return new Guard($container->get(App::class)->getResponseFactory());
     },
 
     // vytvorit rovno appfactory
@@ -59,7 +64,7 @@ return [
     Responder::class => function (ContainerInterface $container) {
         $responseInterface = $container->get(App::class)->getResponseFactory();
         $engine = $container->get(Templates::class);
-        return new Responder($responseInterface, $engine, $container->get('flash'));
+        return new Responder($responseInterface, $engine, $container->get('flash'), $container->get('csrf'));
     },
 
     // slim router - aj pre responder,take divne
@@ -75,5 +80,7 @@ return [
     SessionMiddleware::class => function (ContainerInterface $container) {
         return new SessionMiddleware($container->get(Session::class));
     },
+
+
 
 ];

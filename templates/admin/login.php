@@ -2,6 +2,8 @@
 <main class="mx-auto" style="width:480px;">
 
     <form class="form-signin" method="post" action="/auth">
+        <input type="hidden" name="<?= $nameKey ?>" value="<?= $name ?>">
+        <input type="hidden" name="<?= $valueKey ?>" value="<?= $value ?>">
 
         <h1 class="h3 mb-4 mt-4">Admin section</h1>
 

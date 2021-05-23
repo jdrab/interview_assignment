@@ -4,6 +4,9 @@ $this->layout('template', ['title' => 'Edit Comment']);
 <form enctype="multipart/form-data" action="/admin/update-comment/<?= $id ?>" method="post">
     <div class="border btn-light p-3 mt-5 mb-5">
         <h3 class="mb-2">Úprava komentára</h3>
+        <input type="hidden" name="<?= $nameKey ?>" value="<?= $name ?>">
+        <input type="hidden" name="<?= $valueKey ?>" value="<?= $value ?>">
+
         <input type="hidden" name="id" value="<?= $id ?>" />
         <input type="hidden" name="article_id" value="1" />
         <input type="hidden" name="thread_id" value="<?= $thread_id ?>" />
