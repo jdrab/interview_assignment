@@ -17,6 +17,7 @@
 
 <body>
     <div class="container">
+        <?php $this->insert('partials/messages', ['messages' => $messages]); ?>
         <?= $this->section('content') ?>
     </div>
     <!-- Optional JavaScript; choose one of the two! -->

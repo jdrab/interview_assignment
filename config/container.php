@@ -8,8 +8,9 @@ use App\Responder\Responder;
 use League\Plates\Engine;
 use Psr\Container\ContainerInterface;
 use Slim\Factory\AppFactory;
-//copy pasta
 use Slim\Interfaces\RouteParserInterface;
+use App\Middleware\SessionMiddleware;
+use App\Session;
 
 return [
     // natiahnut do kontaniera settings
@@ -21,6 +22,9 @@ return [
     },
     'flash' => function () {
         return new \Slim\Flash\Messages();
+    },
+    'session' => function () {
+        return require __DIR__ . '/session.php';
     },
 
     // vytvorit rovno appfactory
@@ -62,4 +66,14 @@ return [
     RouteParserInterface::class => function (ContainerInterface $container) {
         return $container->get(App::class)->getRouteCollector()->getRouteParser();
     },
+
+    Session::class => function (ContainerInterface $container) {
+        $settings = $container->get('session');
+        return new Session((array) $settings['session']);
+    },
+
+    SessionMiddleware::class => function (ContainerInterface $container) {
+        return new SessionMiddleware($container->get(Session::class));
+    },
+
 ];

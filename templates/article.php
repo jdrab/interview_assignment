@@ -1,5 +1,9 @@
 <?php
-$this->layout('template', ['title' => 'Sample Article']); //!empty($errors) ? $errors : null, 'messages' => $messages ?? '']);
+
+use App\Session;
+
+$this->layout('template', ['title' => 'Sample Article']);
+
 ?>
 <!-- article !-->
 <h1 class="mt-5 mb-2">Why Babylon 5 Is The Greatest Sci-Fi Show Ever Made</h1>
@@ -62,13 +66,13 @@ if (empty($comments)) {
             <div class="d-flex flex-row-reverse bd-highlight">
                 <div class=" btn-group" role="group">
                     <a class="btn btn-outline-primary btn-sm" href="/add-comment/<?= $comment->id; ?>"><i class="bi bi-reply"></i> Reagovať</a>
-                    <?php // if logged in - begin
+                    <?php if (Session::isLoggedIn()) {
                     ?>
-                    <a href="/admin/edit-comment/<?= $comment->id ?>" class="btn btn-outline-secondary btn-sm">
-                        <i class="bi bi-pencil" style="color: #fd7e14"></i> Upraviť</a>
-                    <a href="/admin/delete-comment/<?= $comment->id ?>" class="btn btn-outline-secondary btn-sm">
-                        <i class="bi  bi-trash" style="color: #dc3545"></i> Zmazať</a>
-                    <?php // if logged in - end
+                        <a href="/admin/edit-comment/<?= $comment->id ?>" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-pencil" style="color: #fd7e14"></i> Upraviť</a>
+                        <a href="/admin/delete-comment/<?= $comment->id ?>" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi  bi-trash" style="color: #dc3545"></i> Zmazať</a>
+                    <?php }
                     ?>
                 </div>
             </div>

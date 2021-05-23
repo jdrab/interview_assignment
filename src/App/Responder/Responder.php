@@ -49,26 +49,26 @@ final class Responder
     {
         $this->errors++;
         $this->flash()->addMessage('error', $err);
-        $this->templates->addData(['messages' => $err], 'template');
+        $this->templates->addData(['messages' => $err], ["template", "template-clean"]);
         return $this;
     }
 
     public function addWarning(string $warning)
     {
         $this->flash->addMessage('warning', $warning);
-        $this->templates->addData(['messages' => $warning], 'template');
+        $this->templates->addData(['messages' => $warning], ["template", "template-clean"]);
         return $this;
     }
     public function addInfo(string $info)
     {
         $this->flash->addMessage('info', $info);
-        $this->templates->addData(['messages' => $info], 'template');
+        $this->templates->addData(['messages' => $info], ["template", "template-clean"]);
         return $this;
     }
     public function addSuccess(string $success)
     {
         $this->flash->addMessage('success', $success);
-        $this->templates->addData(['messages' => $success], 'template');
+        $this->templates->addData(['messages' => $success], ["template", "template-clean"]);
         return $this;
     }
     public function hasErrors()
@@ -83,8 +83,9 @@ final class Responder
 
     public function preserveMessages($data)
     {
-        $this->templates->addData(['messages' => $data], "template");
+        $this->templates->addData(['messages' => $data], ["template", "template-clean"]);
     }
+
 
     public function addErrors(array $err)
     {
@@ -103,7 +104,7 @@ final class Responder
      */
     public function withTemplate(Response $response, string $template, array $data = []): Response
     {
-        $this->templates->addData(['errors' => ''], 'template');
+        $this->templates->addData(['errors' => ''], ["template", "template-clean"]);
 
         $content = $this->templates->render($template, $data);
         $response->getBody()->write($content);

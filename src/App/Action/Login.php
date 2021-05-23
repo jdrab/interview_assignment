@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Action\Admin;
+namespace App\Action;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -23,6 +23,7 @@ class Login
     ): Response {
 
         $data = [];
+        $this->responder->preserveMessages($this->responder->getMessages());
 
         return $this->responder->withTemplate($response, $this->templatePath, $data);
     }

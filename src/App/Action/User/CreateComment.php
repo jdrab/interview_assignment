@@ -21,7 +21,7 @@ class CreateComment
 
     public function __invoke(Request $request, Response $response): Response
     {
-        $args = $request->getParsedBody();
+        $args = (array) $request->getParsedBody();
 
         // skontrolovat existenciu clanku
         // budem sa tvarit, ze 1 clanok existuje

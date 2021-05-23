@@ -1,5 +1,8 @@
 <?php
 // template pre hlavny layout - shamelessly copied
+
+use App\Session;
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -20,7 +23,10 @@
     <div class="container">
         <nav class="py-2  ">
             <div class="container d-flex flex-wrap justify-content-end">
-                <a href="/admin/login" class="btn btn-light px-2"><i class="bi bi-box-arrow-right"></i> Login</a>
+                <?php
+                if (Session::isLoggedIn()) { ?><a href="/admin/logout" class="btn btn-light px-2"><i class="bi bi-box-arrow-left"></i> Logout</a><?php } else { ?>
+                    <a href="/login" class="btn btn-light px-2"><i class="bi bi-box-arrow-right"></i> Login</a>
+                <?php } ?>
             </div>
         </nav>
         <?php $this->insert('partials/messages', ['messages' => $messages]); ?>
