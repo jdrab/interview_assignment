@@ -18,11 +18,11 @@ $this->layout('template', ['title' => 'Edit Comment']);
 
         <div class="form-floating mb-3">
             <textarea maxlength="1024" name="body" id="commentBody" class="form-control" placeholder="Vas komentar" style="height: 100px"><?= $body ?></textarea>
-            <label for="commentBody">Komenár</label>
+            <label for="commentBody">Komentár</label>
         </div>
         <div class="d-flex justify-content-between">
             <a href="/" class="btn btn-secondary justify-content-start "><i class="bi bi-arrow-left"></i> Späť</a>
-            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Upraviť komenár</button>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Upraviť komentár</button>
         </div>
 
     </div>

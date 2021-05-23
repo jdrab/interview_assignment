@@ -36,7 +36,7 @@ class CreateComment
         }
 
         // skontrolovat existenciu threadu v reakcii
-        if ($args['thread_id']) {
+        if (!empty($args['thread_id'])) {
             $thread = $this->domain->threadExists((int) $args['thread_id']);
             if (!$thread) {
                 // neriesim ani dalsie chyby, rovno koncim

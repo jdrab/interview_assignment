@@ -30,7 +30,7 @@ $this->layout('template', ['title' => 'Sample Article']);
 
         <div class="form-floating mb-3">
             <textarea maxlength="1024" name="body" id="commentBody" class="form-control" placeholder="Vas komentar" style="height: 100px"></textarea>
-            <label for="commentBody">Tvoj komenár</label>
+            <label for="commentBody">Tvoj komentár</label>
         </div>
         <div class="d-flex justify-content-end">
             <button class="btn btn-primary justify-content-end" type="submit"><i class="bi bi-plus"></i> Pridať</button>

@@ -46,6 +46,6 @@ class Session
     }
     public static function isLoggedIn()
     {
-        return $_SESSION['loggedIn'];
+        return !empty($_SESSION['loggedIn']);
     }
 }

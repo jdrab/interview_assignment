@@ -23,7 +23,7 @@ $this->layout('template', ['title' => 'Zmazanie komentára']);
         </div>
         <div class="d-flex justify-content-between">
             <a href="/" class="btn btn-secondary justify-content-start "><i class="bi bi-arrow-left"></i> Späť</a>
-            <button tabindex="1" type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Zmazať komenár</button>
+            <button tabindex="1" type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Zmazať komentár</button>
         </div>
 
     </div>
