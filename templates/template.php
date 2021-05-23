@@ -18,9 +18,9 @@
 
 <body>
     <div class="container">
-        <nav class="py-2 bg-light border-bottom">
-            <div class="container d-flex flex-wrap">
-                <a href="/admin/login" class="nav-link link-dark px-2">Login</a>
+        <nav class="py-2  ">
+            <div class="container d-flex flex-wrap justify-content-end">
+                <a href="/admin/login" class="btn btn-light px-2"><i class="bi bi-box-arrow-right"></i> Login</a>
             </div>
         </nav>
         <?php $this->insert('partials/messages', ['messages' => $messages]); ?>

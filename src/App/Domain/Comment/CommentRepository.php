@@ -29,7 +29,7 @@ class CommentRepository
         $stmt = $this->db->connect()->prepare($q);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        return (bool) $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function findById(int $id)
@@ -62,20 +62,21 @@ class CommentRepository
     }
     public function findNextThreadId()
     {
-        $stmt = $this->db->connect()->query("SELECT MAX(thread_id)+1 AS tid from comments");
-        return $stmt->fetch(\PDO::FETCH_ASSOC)['tid'];
+        $stmt = $this->db->connect()->query("SELECT MAX(thread_id) AS tid from comments");
+        # pretoze MAX moze vratit aj NULL a mysql nezvlada null+1 :P
+        return 1 + $stmt->fetch(\PDO::FETCH_ASSOC)['tid'];
     }
 
     public function insert(Comment $comment): bool
     {
 
-        $q = "INSERT INTO comments (author,body,article_id,thread_id,ref_to_comment)
+        $q = "INSERT INTO comments (author,body,article_id,thread_id,ref_to_comment_id)
         VALUES (
         :author,
         :body,
         :article_id,
         :thread_id,
-        :ref_to_comment)";
+        :ref_to_comment_id)";
         $stmt = $this->db->connect()->prepare($q);
         $stmt->execute(
             [
@@ -83,7 +84,7 @@ class CommentRepository
                 'body' => filter_var($comment->body, FILTER_SANITIZE_STRING),
                 'article_id' => $comment->article_id,
                 'thread_id' => $comment->thread_id,
-                'ref_to_comment' => $comment->ref_to_comment
+                'ref_to_comment_id' => $comment->ref_to_comment_id
             ]
         );
         # len pri sqlite vzdy vracia rowCount() z pdo 0
@@ -93,7 +94,7 @@ class CommentRepository
 
     public function delete(int $comment_id): bool
     {
-        $q = "DELETE FROM comments where id = :id OR ref_to_comment = :id";
+        $q = "DELETE FROM comments where id = :id OR ref_to_comment_id = :id";
         $stmt = $this->db->connect()->prepare($q);
         $stmt->bindParam(':id', $comment_id, PDO::PARAM_INT);
         $stmt->execute();

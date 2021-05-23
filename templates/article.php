@@ -6,6 +6,7 @@ $this->layout('template', ['title' => 'Sample Article']); //!empty($errors) ? $e
 <p>You know that conversation you have with fellow nerds about which is the best sci-fi show, where everyone argues about whether Firefly is better than Battlestar Galactica while someone else insists that Doctor Who is clearly the best? I can't help vehemently disagreeing with all of the above because if you ask me, the finest sci-fi show of all time is unquestionably Babylon 5 (1993 – 1998). Stick with me and I'll try to persuade you of why.</p>
 <small><a href="https://www.phantompenpress.com/blog/2017/10/9/why-babylon-5-is-the-greatest-sci-fi-show-ever-made" target="_blank">Read more</a></small>
 <div class="border btn-light p-3 mt-5 mb-5">
+    <h5 class="pb-3">Zapojiť sa do diskusie</h5>
     <form enctype="multipart/form-data" action="/create-comment" method="post">
 
         <input type="hidden" name="article_id" value="1" />
@@ -13,15 +14,15 @@ $this->layout('template', ['title' => 'Sample Article']); //!empty($errors) ? $e
 
         <div class="form-floating mb-3">
             <input type="text" name="author" class="form-control" id="commentAuthor" placeholder="Vase meno">
-            <label for="commentAuthor">Vase meno</label>
+            <label for="commentAuthor">Autor</label>
         </div>
 
         <div class="form-floating mb-3">
-            <textarea name="body" id="commentBody" class="form-control" placeholder="Vas komentar" style="height: 100px"></textarea>
-            <label for="commentBody">Vas komentar</label>
+            <textarea maxlength="1024" name="body" id="commentBody" class="form-control" placeholder="Vas komentar" style="height: 100px"></textarea>
+            <label for="commentBody">Tvoj komenár</label>
         </div>
         <div class="d-flex justify-content-end">
-            <button class="btn btn-primary btn-sm justify-content-end" type="submit"><i class="bi bi-plus-lg"></i> Pridať nový komenár</button>
+            <button class="btn btn-primary justify-content-end" type="submit"><i class="bi bi-plus"></i> Pridať</button>
         </div>
     </form>
 </div>

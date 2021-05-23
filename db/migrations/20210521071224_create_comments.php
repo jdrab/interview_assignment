@@ -22,10 +22,10 @@ final class CreateComments extends AbstractMigration
         $table = $this->table('comments');
         $table->addTimestamps()
             ->addColumn('author', 'string', ['limit' => 64, 'null' => false])
-            ->addColumn('body', 'text', ['limit' => '1024', 'null' => false])
+            ->addColumn('body', 'text', ['null' => false])
             ->addColumn('article_id', 'integer', ['null' => false])
             ->addColumn('thread_id', 'integer', ['null' => false]) //nikdy nemoze byt null,
-            ->addColumn('ref_to_comment', 'integer', ['null' => true]) //moze byt null lebo comment moze byt prvy v threade
+            ->addColumn('ref_to_comment_id', 'integer', ['null' => true]) //moze byt null lebo comment moze byt prvy v threade
             ->create();
     }
 }

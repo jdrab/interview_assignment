@@ -3,7 +3,7 @@ $this->layout('template', ['title' => 'Sample Article']); //!empty($errors) ? $e
 ?>
 <form enctype="multipart/form-data" action="/admin/destroy-comment/<?= $id ?>" method="post" class="row">
     <h1 class="mt-5 mb-2">Zmazanie komentara</h1>
-    <p class="alert alert-warning"><strong><i class="bi bi-exclamation-circle-fill"></i> Upozornenie:</strong> zmazane budu aj komentare,ktore priamo reagovali na mazany komentar.</p>
+    <p class="alert border bg-light p-3"><strong><i class="bi bi-exclamation-circle-fill"></i> Upozornenie:</strong> zmazane budu aj komentare,ktore priamo reagovali na mazany komentar.</p>
     <div class=" mb-3 row">
         <label for="author" class="col-sm-2 col-form-label">Autor</label>
         <div class="col-sm-10">

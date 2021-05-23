@@ -12,7 +12,7 @@ class Comment
     protected ?string $body = null;
     protected ?int $article_id = null;
     protected ?int $thread_id = null;
-    protected ?int $ref_to_comment = null;
+    protected ?int $ref_to_comment_id = null;
     protected ?string $created_at = null;
     protected ?string $updated_at = null;
 

@@ -44,7 +44,7 @@ class CreateComment
 
         // skontrolovat existenciu threadu v reakcii
         if ($args['thread_id']) {
-            $thread = $this->domain->findThreadById((int) $args['thread_id']);
+            $thread = $this->domain->threadExists((int) $args['thread_id']);
             if (!$thread) {
                 // neriesim ani dalsie chyby, rovno koncim
                 return $this->responder->addError('Vlakno neexistuje')->withRedirect($response, '/');
