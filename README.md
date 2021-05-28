@@ -38,3 +38,9 @@ Zaujíma nás Váš prístup k OOP a čistote kódu.
 - php vendor/bin/phinx seed:run
 - php -S localhost:8000 -t public
 - v config/session.php su uvedene defaultne prihlasovacie udaje admin:admin
+
+#### live 
+- https://hyperia.drab.name 
+- admin:nimda
+
+
