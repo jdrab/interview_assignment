@@ -3,21 +3,15 @@
 namespace App\Action\Admin;
 
 use App\Responder\Responder;
+use App\Session;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Session;
 
 final class Logout
 {
-    /**
-     * @var SessionInterface
-     */
-    private $session;
 
-    public function __construct(Session $session, Responder $responder)
+    public function __construct(private Responder $responder, private Session $session)
     {
-        $this->session = $session;
-        $this->responder = $responder;
     }
 
     public function __invoke(

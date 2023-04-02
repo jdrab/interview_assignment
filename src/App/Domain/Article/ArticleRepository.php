@@ -8,9 +8,8 @@ use PDO;
 class ArticleRepository
 {
 
-    public function __construct(Db $db)
+    public function __construct(private Db $db)
     {
-        $this->db = $db;
     }
 
     // fakujeme data

@@ -6,7 +6,7 @@ namespace App;
 // najprimitivnejsi sposob aky mi napadol okrem cistych session
 class Session
 {
-    public function __construct(array $config)
+    public function __construct(private array $config)
     {
         $this->config = $config;
     }

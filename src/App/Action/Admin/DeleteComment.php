@@ -5,20 +5,19 @@ declare(strict_types=1);
 namespace App\Action\Admin;
 
 use App\Domain\Comment\CommentRepository;
+use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use App\Responder\Responder;
 
 class DeleteComment
 {
 
     const COMMENT_INVALID = "Neplatný komentár";
     const COMMENT_MISSING = "Komentár neexistuje";
+    private string $templatePath;
 
-    public function __construct(Responder $responder, CommentRepository $repo)
+    public function __construct(private Responder $responder, private CommentRepository $domain)
     {
-        $this->responder = $responder;
-        $this->domain = $repo;
         $this->templatePath = 'admin/comment/delete-comment';
     }
 

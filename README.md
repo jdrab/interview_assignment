@@ -17,9 +17,9 @@ Zaujíma nás Váš prístup k OOP a čistote kódu.
 
 
 ### použité
-- ako zaklad slim4 s pokusom o implementaciu ADR
+- ako zaklad slim4 s implementaciou ADR
 - php-di ako dependency injektor
-- primitivny autorizacny middleware a najivne sessions
+- primitivny autorizacny middleware s obycajnymi sessions
 - nativne templates s pouzitim plates, sablony su trochu hnusne lebo <?= ?>
 - phinx pre migracie a seed databazy
 - ~~codecept pre acceptance testing~~
@@ -40,7 +40,7 @@ Zaujíma nás Váš prístup k OOP a čistote kódu.
 - v config/session.php su uvedene defaultne prihlasovacie udaje admin:admin
 
 #### live 
-- https://hyperia.drab.name 
-- admin:nimda
+- ~~https://hyperia.drab.name~~
+- ~~admin:nimda~~
 
 

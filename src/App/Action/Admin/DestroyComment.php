@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Action\Admin;
 
 use App\Domain\Comment\CommentRepository;
+use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use App\Responder\Responder;
 
 /**
  * create comment savuje
@@ -15,10 +15,8 @@ use App\Responder\Responder;
 class DestroyComment
 {
 
-    public function __construct(Responder $responder, CommentRepository $repo)
+    public function __construct(private Responder $responder, private CommentRepository $domain)
     {
-        $this->responder = $responder;
-        $this->domain = $repo;
     }
 
     public function __invoke(Request $request, Response $response, array $args): Response

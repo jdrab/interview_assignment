@@ -3,7 +3,6 @@
 namespace App\Middleware;
 
 use App\Session;
-use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -13,16 +12,9 @@ use Slim\Routing\RouteContext;
 
 final class UserAuthMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var ResponseFactoryInterface
-     */
-    private $responseFactory;
-
-    private $session;
-
     public function __construct(
-        ResponseFactory $responseFactory,
-        Session $session
+        private ResponseFactory $responseFactory,
+        private Session $session
     ) {
         $this->responseFactory = $responseFactory;
         $this->session = $session;

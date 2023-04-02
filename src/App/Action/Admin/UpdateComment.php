@@ -6,20 +6,15 @@ namespace App\Action\Admin;
 
 use App\Domain\Comment\CommentRepository;
 use App\Mapper\CommentMapper;
+use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use App\Responder\Responder;
 
-/**
- * create comment savuje
- */
 class UpdateComment
 {
 
-    public function __construct(Responder $responder, CommentRepository $repo)
+    public function __construct(private Responder $responder, private CommentRepository $domain)
     {
-        $this->responder = $responder;
-        $this->domain = $repo;
     }
 
     public function __invoke(Request $request, Response $response, array $urlArgs): Response
@@ -59,7 +54,7 @@ class UpdateComment
             $this->responder->addError('Meno autora je povinne');
         }
 
-        if (empty($args['body']) || strlen($args['body']) < 2) {
+        if (strlen((string) $args['body']) < 2) {
             $this->responder->addError('Komentar musi mat aspon 2 znaky');
         }
 

@@ -8,6 +8,13 @@ use Interface\DbConfigInterface;
 
 class DbConfig implements DbConfigInterface
 {
+    private ?string $adapter;
+    private ?string $host;
+    private ?string $name;
+    private ?string $user;
+    private ?string $pass;
+    private ?int $port;
+    private ?string $charset;
 
     public function __construct(array $config)
     {

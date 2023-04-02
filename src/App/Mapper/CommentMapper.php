@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Mapper;
 
-use App\DataType\Comment;
 use \ReflectionClass;
 use \ReflectionProperty;
+use App\DataType\Comment;
 
 class  CommentMapper
 {

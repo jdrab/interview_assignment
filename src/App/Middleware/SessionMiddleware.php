@@ -2,18 +2,17 @@
 
 namespace App\Middleware;
 
+use App\Session;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use App\Session;
 
 final class SessionMiddleware implements MiddlewareInterface
 {
 
-    public function __construct(Session $session)
+    public function __construct(private Session $session)
     {
-        $this->session = $session;
     }
 
     /**

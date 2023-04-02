@@ -12,14 +12,12 @@ use Slim\Routing\RouteContext;
 
 final class Authenticate
 {
-    private $session;
-
-    public function __construct(Responder $responder, Session $session, Auth $auth, Db $db)
-    {
-        $this->responder = $responder;
-        $this->session = $session;
-        $this->auth = $auth;
-        $this->db = $db;
+    public function __construct(
+        private Responder $responder,
+        private Session $session,
+        private Auth $auth,
+        private Db $db
+    ) {
     }
 
     public function __invoke(

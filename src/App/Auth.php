@@ -6,14 +6,15 @@ namespace App;
 // najprimitivnejsi sposob aky mi napadol okrem cistych session
 class Auth
 {
-    public function __construct(Db $db)
+
+    public function __construct(private Db $db)
     {
         $this->db = $db;
     }
 
     public function login(string $login, string $password): bool
     {
-        $q = "SELECT hash from users where login = :login ";
+        $q = "SELECT hash from users where login = :login";
         $stmt = $this->db->connect()->prepare($q);
         $stmt->bindParam(':login', $login, \PDO::PARAM_STR);
         $stmt->execute();

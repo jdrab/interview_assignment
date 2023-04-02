@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace App\Domain\Comment;
 
+use App\DataType\Comment;
 use App\Db;
 use App\Domain\Article\ArticleRepository;
-use App\DataType\Comment;
 use PDO;
 
 class CommentRepository
 {
 
-    public function __construct(Db $db)
+    public function __construct(private Db $db)
     {
-        $this->db = $db;
     }
 
     public function findArticleById(int $id): array|bool
@@ -80,8 +79,8 @@ class CommentRepository
         $stmt = $this->db->connect()->prepare($q);
         $stmt->execute(
             [
-                'author' => filter_var($comment->author, FILTER_SANITIZE_STRING),
-                'body' => filter_var($comment->body, FILTER_SANITIZE_STRING),
+                'author' => htmlspecialchars($comment->author),
+                'body' => htmlspecialchars($comment->body),
                 'article_id' => $comment->article_id,
                 'thread_id' => $comment->thread_id,
                 'ref_to_comment_id' => $comment->ref_to_comment_id

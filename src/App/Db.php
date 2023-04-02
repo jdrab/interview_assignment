@@ -2,17 +2,17 @@
 
 namespace App;
 
-use PDO;
-
 use App\DbConfig;
+
+use PDO;
 
 
 class Db extends \PDO
 {
 
-    protected $dbh;
+    private PDO $dbh;
 
-    public function __construct(DbConfig $c)
+    public function __construct(private DbConfig $c)
     {
         try {
             $this->dbh = new \PDO(

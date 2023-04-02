@@ -7,7 +7,7 @@ return [
         'name' => 'hyperia_zadanie',
         'user' => 'dev',
         'pass' => 'devdevdev',
-        'port' => '3306',
+        'port' => 3306,
         'charset' => 'utf8',
     ],
     'development' => [
@@ -16,7 +16,7 @@ return [
         'name' => 'hyperia_zadanie_development',
         'user' => 'dev',
         'pass' => 'devdevdev',
-        'port' => '3306',
+        'port' => 3306,
         'charset' => 'utf8',
     ],
     'testing' => [
@@ -25,7 +25,7 @@ return [
         'name' => 'hyperia_zadanie_testing',
         'user' => 'dev',
         'pass' => 'devdevdev',
-        'port' => '3306',
+        'port' => 3306,
         'charset' => 'utf8',
     ]
 ];

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Action;
 
+use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use App\Responder\Responder;
 
 class Login
 {
+    private string $templatePath;
 
-    public function __construct(Responder $responder)
+    public function __construct(private Responder $responder)
     {
-        $this->responder = $responder;
         $this->templatePath = 'admin/login';
     }
 

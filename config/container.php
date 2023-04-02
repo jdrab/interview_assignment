@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 use App\Db;
 use App\DbConfig;
+use App\Middleware\SessionMiddleware;
 use App\Responder\Responder;
+use App\Session;
 use League\Plates\Engine;
 use Psr\Container\ContainerInterface;
+use Slim\Csrf\Guard;
 use Slim\Factory\AppFactory;
 use Slim\Interfaces\RouteParserInterface;
-use App\Middleware\SessionMiddleware;
-use App\Session;
-use Slim\Csrf\Guard;
 
 return [
     // natiahnut do kontaniera settings

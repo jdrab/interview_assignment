@@ -2,14 +2,14 @@
 
 namespace App\Responder;
 
-use Slim\Psr7\Response;
-use Slim\Psr7\Factory\ResponseFactory;
-
+use function http_build_query;
 use League\Plates\Engine as Templates;
+
 use Slim\Csrf\Guard;
 use Slim\Flash\Messages;
-
-use function http_build_query;
+use Slim\Psr7\Factory\ResponseFactory;
+// use Slim\Psr7\Message;
+use Slim\Psr7\Response;
 
 /**
  * A generic responder.
@@ -20,6 +20,8 @@ final class Responder
 
     private ResponseFactory $responseFactory;
     private $errors = 0;
+    public Guard $csrf;
+    public Messages $flash;
 
     public function __construct(
         ResponseFactory $responseFactory,
